@@ -24,3 +24,12 @@
   height: 50px;
   font-size: 18px;
 }
+
+#backspace {
+    background-color: #666;
+    color: white;
+  }
+  
+  #backspace:hover {
+    background-color: #888;
+  }

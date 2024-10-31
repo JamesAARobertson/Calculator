@@ -6,6 +6,8 @@ const display = document.getElementById("display");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const clearButton = document.getElementById("clear");
+const decimalButton = document.querySelectorAll("decimal");
+const backspaceButton = document.getElementById("backspace");
 
 // ADD
 function add(a, b) {
@@ -48,18 +50,26 @@ function operate(a, b, operator) {
     default:
       return "Invalid Operation";
   }
-//   round result to 2 decimal places
+  //   round result to 2 decimal places
   if (!Number.isInteger(result)) {
-    result = parseFloat(result.toFixed(2))
+    result = parseFloat(result.toFixed(2));
   }
-  return result
+  return result;
 }
 
 // handling number buttons for display
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    displayValue += button.innerText;
-    display.value = displayValue;
+    if (button.innerText === ".") {
+      if (!displayValue.includes(".")) {
+        displayValue += button.innerText;
+        display.value = displayValue;
+        decimalButton.disabled = true;
+      }
+    } else {
+      displayValue += button.innerText;
+      display.value = displayValue;
+    }
   });
 });
 
@@ -67,7 +77,7 @@ numberButtons.forEach((button) => {
 operatorButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const selectedOperator = button.innerText;
-// HANDLING "=" FUNCTION
+    // HANDLING "=" FUNCTION
     if (selectedOperator === "=") {
       if (operator && displayValue !== "") {
         b = parseFloat(displayValue);
@@ -75,21 +85,23 @@ operatorButtons.forEach((button) => {
         display.value = displayValue;
         a = parseFloat(displayValue);
         operator = "";
+        decimalButton.disabled = false;
       }
+    } else {
+      if (operator && displayValue !== "") {
+        b = parseFloat(displayValue);
+        displayValue = operate(a, b, operator).toString();
+        display.value = displayValue;
+        a = parseFloat(displayValue);
       } else {
-        if (operator && displayValue !== "") {
-          b = parseFloat(displayValue);
-          displayValue = operate(a, b, operator).toString();
-          display.value = displayValue;
-          a = parseFloat(displayValue);
-        } else {
-          a = parseFloat(displayValue);
-        }
-        operator = selectedOperator;
-        displayValue = "";
+        a = parseFloat(displayValue);
       }
-    })
+      operator = selectedOperator;
+      displayValue = "";
+      decimalButton.disabled = false;
+    }
   });
+});
 
 // CLEAR BUTTON
 clearButton.addEventListener("click", () => {
@@ -98,4 +110,11 @@ clearButton.addEventListener("click", () => {
   operator = "";
   displayValue = "";
   display.value = displayValue;
+  decimalButton.disabled = "false";
+});
+
+// BACKSPACE BUTTON
+backspaceButton.addEventListener("click", () => {
+    displayValue = displayValue.slice(0, -1);
+    display.value = displayValue
 });
