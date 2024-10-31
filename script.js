@@ -67,7 +67,7 @@ numberButtons.forEach((button) => {
 operatorButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const selectedOperator = button.innerText;
-
+// HANDLING "=" FUNCTION
     if (selectedOperator === "=") {
       if (operator && displayValue !== "") {
         b = parseFloat(displayValue);
