@@ -57,20 +57,30 @@ numberButtons.forEach((button) => {
 // handling operators
 operatorButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.innerText === "=") {
-      b = parseFloat(displayValue);
-      displayValue = operate(a, b, operator).toString();
-      display.value = displayValue;
-      a = parseFloat(displayValue);
-      operator = "";
-    } else {
-      a = parseFloat(displayValue);
-      operator = button.innerText;
-      displayValue = "";
-      display.value = displayValue;
-    }
+    const selectedOperator = button.innerText;
+
+    if (selectedOperator === "=") {
+      if (operator && displayValue !== "") {
+        b = parseFloat(displayValue);
+        displayValue = operate(a, b, operator).toString();
+        display.value = displayValue;
+        a = parseFloat(displayValue);
+        operator = "";
+      }
+      } else {
+        if (operator && displayValue !== "") {
+          b = parseFloat(displayValue);
+          displayValue = operate(a, b, operator).toString();
+          display.value = displayValue;
+          a = parseFloat(displayValue);
+        } else {
+          a = parseFloat(displayValue);
+        }
+        operator = selectedOperator;
+        displayValue = "";
+      }
+    })
   });
-});
 
 // CLEAR BUTTON
 clearButton.addEventListener("click", () => {
