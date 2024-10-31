@@ -1,3 +1,12 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
 .calculator {
   display: inline-block;
   border: 2px solid #333;
@@ -21,13 +30,13 @@
 
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 60px);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  align-items: stretch;
 }
 
 .buttons button {
-  width: 60px;
-  height: 60px;
+  min-height: 60px;
   font-size: 24px;
   border: none;
   border-radius: 5px;
@@ -39,8 +48,12 @@
     color: #333;
 }
 
-.number.zero {
+.equals {
     grid-column: span 2;
+}
+
+.plus {
+    grid-row: span 2;
 }
 
 .operator {
@@ -52,6 +65,7 @@
     background-color: #4caf50;
     color: white
 }
+
 
 .number:hover, .decimal:hover {
     background-color: #ececec;
@@ -72,3 +86,4 @@
 #clear:hover, #backspace:hover {
     background-color: #b71c1c;
   }
+
