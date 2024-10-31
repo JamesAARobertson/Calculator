@@ -5,6 +5,7 @@ let displayValue = "";
 const display = document.getElementById("display");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
+const clearButton = document.getElementById("clear");
 
 // ADD
 function add(a, b) {
@@ -69,4 +70,13 @@ operatorButtons.forEach((button) => {
       display.value = displayValue;
     }
   });
+});
+
+// CLEAR BUTTON
+clearButton.addEventListener("click", () => {
+  a = 0;
+  b = 0;
+  operator = "";
+  displayValue = "";
+  display.value = displayValue;
 });
