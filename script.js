@@ -34,16 +34,25 @@ function divide(a, b) {
 function operate(a, b, operator) {
   switch (operator) {
     case "+":
-      return add(a, b);
+      result = add(a, b);
+      break;
     case "-":
-      return subtract(a, b);
+      result = subtract(a, b);
+      break;
     case "*":
-      return multiply(a, b);
+      result = multiply(a, b);
+      break;
     case "/":
-      return divide(a, b);
+      result = divide(a, b);
+      break;
     default:
       return "Invalid Operation";
   }
+//   round result to 2 decimal places
+  if (!Number.isInteger(result)) {
+    result = parseFloat(result.toFixed(2))
+  }
+  return result
 }
 
 // handling number buttons for display
